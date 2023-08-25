@@ -209,13 +209,13 @@ nav.navbar {
 
 /*Profile Pic*/
 img.profile-pic {
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
 }
 
 .profile-wrapper {
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
     align-items: center;
     background-color: rgba(72, 84, 95, 0.12);
