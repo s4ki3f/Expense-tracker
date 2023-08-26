@@ -6,14 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Expense_Tracker.Models;
+using Expense_Tracker.Data;
 
 namespace Expense_Tracker.Controllers
 {
     public class TransactionController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly Expense_TrackerContext _context;
 
-        public TransactionController(ApplicationDbContext context)
+        public TransactionController(Expense_TrackerContext context)
         {
             _context = context;
         }

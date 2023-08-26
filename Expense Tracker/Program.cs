@@ -1,5 +1,8 @@
 using Expense_Tracker.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Expense_Tracker.Data;
+using Expense_Tracker.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,8 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //DI
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")));
+builder.Services.AddDbContext<Expense_TrackerContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("Expense_TrackerContextConnection")));
+
+builder.Services.AddDefaultIdentity<Expense_TrackerUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<Expense_TrackerContext>();
+
+builder.Services.AddRazorPages();
+
 
 //Register Syncfusion license
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBMAY9C3t2V1hiQlRPf0BAWXxLflF1VWpTflt6d1dWESFaRnZdQV1rS3tTf0RlXXlfc3VW\r\n");
@@ -28,11 +37,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Dashboard}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 app.Run();
